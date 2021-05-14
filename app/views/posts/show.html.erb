@@ -1,0 +1,39 @@
+<div class="jumbotron">
+	<h2><%= @post.title %> </h2>
+	<p><%= @post.body %> </p>
+	<p><%= @post.updated_at %></p>
+	<p><%= @post.created_at %></p>
+	<hr>
+	<%= link_to "Edit", edit_post_path(@post), :class => 'btn btn-warning' %>
+	<%= link_to "Delete", post_path(@post),
+	            method: :delete,
+	            data:{confirm: 'are you sure?'},:class => 'btn btn-danger' %>
+	<hr>
+</div>
+<h3>Comments</h3>
+
+<% @post.comments.each do |comment| %>
+<div class="container-md" style="background-color: #b3ffff;line-height: 50px;">
+		<p><strong><%= comment.username %></strong>:<span style="background-color: yellow;"><%=comment.body%></span>
+		<span style="float: right;"><%= link_to '[x]', [comment.post, comment],
+                method: :delete,
+                data:{confirm: 'are you sure?'},:class => 'btn btn-danger'%></p></span>
+</div>
+<% end %>
+
+<h3>Add comments</h3>
+  <div class="container-md">
+  <%= form_for([@post,@post.comments.build]) do |form|%>
+    <p>
+      <%= form.label :username %><br>
+      <%= form.text_field(:username, {:class =>'form-control'}) %>
+    </p>
+    <p>
+      <%= form.label :body %><br>
+      <%= form.text_area(:body, {:class => 'form-control'}) %>
+    </p>
+    <p>
+      <%= form.submit({:class => 'btn btn-primary'}) %>
+    </p>
+  <% end %>
+  </div>

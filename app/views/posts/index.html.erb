@@ -1,0 +1,10 @@
+<h1>POSTS</h1>
+<br>
+<% @posts.each do |post| %>
+	<div class="jumbotron">
+	<h3><%= post.title %></h3>
+	<hr>
+	<%= link_to "Click to know more", post_path(post),  :class => 'btn btn-info' %>
+	<span style="font-size: 40px;">...</span>
+	</div>
+<% end %>
